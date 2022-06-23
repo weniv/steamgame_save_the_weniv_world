@@ -1,5 +1,7 @@
 # phaser-lecture
 
+[![Deploy Phaser Application](https://github.com/choar816/phaser-lecture/actions/workflows/deploy.yml/badge.svg)](https://github.com/choar816/phaser-lecture/actions/workflows/deploy.yml)
+
 ## Tech Stack
 `JavaScript`, `Phaser 3`
 
