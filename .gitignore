@@ -16,3 +16,6 @@ dist/
 # Key
 gh-pages
 gh-pages.pub
+
+# Dotenv
+.env
