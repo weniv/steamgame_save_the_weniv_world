@@ -10,7 +10,7 @@ export default class HpBar extends Phaser.GameObjects.Graphics {
     super(scene);
 
     this.m_x = player.x - HpBar.WIDTH / 2;
-    this.m_y = player.y + 30;
+    this.m_y = player.y + 40;
 
     this.m_maxHp = maxHp;
     this.m_currentHp = maxHp;
