@@ -122,6 +122,15 @@ export default class LoadingScene extends Phaser.Scene {
       frameRate: 12,
       repeat: -1,
     });
+    this.anims.create({
+      key: "player_still",
+      frames: this.anims.generateFrameNumbers("player", {
+        start: 0,
+        end: 0,
+      }),
+      frameRate: 12,
+      repeat: 0,
+    });
 
     this.anims.create({
       key: "explode",

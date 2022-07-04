@@ -144,7 +144,7 @@ export default class PlayingScene extends Phaser.Scene {
     // runtime
     this.m_secondElapsed = 0;
     this.m_timeText = this.add
-      .text(Config.width / 2, 100, "00:00:00", { fontSize: 30 })
+      .text(Config.width / 2, 100, "00:00", { fontSize: 30 })
       .setOrigin(0.5)
       .setDepth(105)
       .setScrollFactor(0);
@@ -229,6 +229,13 @@ export default class PlayingScene extends Phaser.Scene {
   }
 
   movePlayerManager() {
+    // Why not working?
+    if (this.m_cursorKeys.left.isDown || this.m_cursorKeys.right.isDown || this.m_cursorKeys.up.isDown || this.m_cursorKeys.down.isDown) {
+      this.m_player.play("player_anim");
+    } else {
+      this.m_player.play("player_still");
+    }
+
     if (this.m_cursorKeys.left.isDown || this.m_wasdKeys.left.isDown) {
       this.m_player.move(Direction.Left);
     } else if (this.m_cursorKeys.right.isDown || this.m_wasdKeys.right.isDown) {
