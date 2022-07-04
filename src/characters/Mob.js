@@ -14,6 +14,15 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
     this.m_hp = initHp;
     this.m_dropRate = dropRate;
 
+    if (texture === "mob1") {
+      this.setBodySize(24, 14, false);
+      this.setOffset(0, 14);
+    } else if (texture === "mob2") {
+      this.setBodySize(24, 32);
+    } else if (texture === "mob3") {
+      this.setBodySize(24, 32);
+    }
+
     if (animKey) {
       this.play(animKey);
     }
