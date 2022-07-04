@@ -79,12 +79,11 @@ export default class PlayingScene extends Phaser.Scene {
     // player
     this.m_player = new Player(this);
     this.cameras.main.startFollow(this.m_player);
-    
+
     // attacks
     this.m_projectiles = this.add.group();
     this.m_weaponStatic = this.add.group();
-    this.m_garlic = new Garlic(this, this.m_player);
-    this.m_weaponStatic.add(this.m_garlic);
+    this.m_weaponStatic.add(new Garlic(this, this.m_player.x, this.m_player.y));
 
     // exp up item
     this.m_expUps = this.physics.add.group();
@@ -242,22 +241,41 @@ export default class PlayingScene extends Phaser.Scene {
 
   movePlayerManager() {
     // Why not working?
-    if (this.m_cursorKeys.left.isDown || this.m_cursorKeys.right.isDown || this.m_cursorKeys.up.isDown || this.m_cursorKeys.down.isDown) {
-      this.m_player.play("player_anim");
+    if (this.m_cursorKeys.left.isDown || this.m_cursorKeys.right.isDown || this.m_cursorKeys.up.isDown || this.m_cursorKeys.down.isDown || this.m_wasdKeys.left.isDown || this.m_wasdKeys.right.isDown || this.m_wasdKeys.up.isDown || this.m_wasdKeys.down.isDown) {
+      if (!this.m_player.m_moving) {
+        this.m_player.play("player_anim");
+      }
+      this.m_player.m_moving = true;
     } else {
-      this.m_player.play("player_still");
+      if (this.m_player.m_moving) {
+        this.m_player.play("player_still");
+      }
+      this.m_player.m_moving = false;
     }
 
+    // TODO: refactor
     if (this.m_cursorKeys.left.isDown || this.m_wasdKeys.left.isDown) {
       this.m_player.move(Direction.Left);
+      this.m_weaponStatic.children.each(sprite => {
+        sprite.move(Direction.Left);
+      }, this);
     } else if (this.m_cursorKeys.right.isDown || this.m_wasdKeys.right.isDown) {
       this.m_player.move(Direction.Right);
+      this.m_weaponStatic.children.each(sprite => {
+        sprite.move(Direction.Right);
+      }, this);
     }
 
     if (this.m_cursorKeys.up.isDown || this.m_wasdKeys.up.isDown) {
       this.m_player.move(Direction.Up);
+      this.m_weaponStatic.children.each(sprite => {
+        sprite.move(Direction.Up);
+      }, this);
     } else if (this.m_cursorKeys.down.isDown || this.m_wasdKeys.down.isDown) {
       this.m_player.move(Direction.Down);
+      this.m_weaponStatic.children.each(sprite => {
+        sprite.move(Direction.Down);
+      }, this);
     }
   }
 

@@ -25,6 +25,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.setDepth(20);
     this.setBodySize(28, 32);
 
+    this.m_moving = false;
+
     // beam : 1초마다 자동으로 공격
     this.scene.time.addEvent({
       delay: 1000,
