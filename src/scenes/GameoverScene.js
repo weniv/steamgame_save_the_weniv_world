@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import Config from "../Config";
 import Button from "../ui/Button";
+import { getTimeString } from "../utils/time";
 
 export default class GameoverScene extends Phaser.Scene {
   constructor() {
@@ -10,6 +11,7 @@ export default class GameoverScene extends Phaser.Scene {
   init(data) {
     this.m_mobKilled = data.mobKilled;
     this.m_level = data.level;
+    this.m_secondElapsed = data.secondElapsed;
   }
 
   create() {
@@ -21,9 +23,19 @@ export default class GameoverScene extends Phaser.Scene {
     this.add
       .bitmapText(
         Config.width / 2,
-        Config.height / 2 - 100,
+        Config.height / 2 - 180,
         "pixelFont",
         "Game Over",
+        80
+      )
+      .setOrigin(0.5);
+
+    this.add
+      .bitmapText(
+        Config.width / 2,
+        Config.height / 2 - 30,
+        "pixelFont",
+        `You survived for ${getTimeString(this.m_secondElapsed)} !`,
         40
       )
       .setOrigin(0.5);
@@ -31,16 +43,16 @@ export default class GameoverScene extends Phaser.Scene {
     this.add
       .bitmapText(
         Config.width / 2,
-        Config.height / 2,
+        Config.height / 2 + 30,
         "pixelFont",
         `Mobs Killed : ${this.m_mobKilled}, Level : ${this.m_level}`,
-        30
+        40
       )
       .setOrigin(0.5);
 
     new Button(
       Config.width / 2,
-      Config.height / 2 + 100,
+      Config.height / 2 + 180,
       "Go to Main",
       this,
       () => this.scene.start("mainScene")

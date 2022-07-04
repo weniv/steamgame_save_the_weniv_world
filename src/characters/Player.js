@@ -46,6 +46,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       this.scene.scene.start("gameoverScene", {
         mobKilled: this.scene.m_topBar.m_score,
         level: this.scene.m_topBar.m_level,
+        secondElapsed: this.scene.m_secondElapsed,
       });
     }
 
