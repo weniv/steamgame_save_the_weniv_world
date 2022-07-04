@@ -21,6 +21,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     scene.add.existing(this);
     scene.physics.add.existing(this);
+    this.setDepth(20);
 
     // 1초마다 자동으로 공격
     this.scene.time.addEvent({

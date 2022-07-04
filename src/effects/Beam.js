@@ -16,8 +16,7 @@ export default class Beam extends Phaser.Physics.Arcade.Sprite {
     scene.m_projectiles.add(this);
     scene.m_beamSound.play();
 
-    // this.setCircle(30);
-    this.setDepth(80);
+    this.setDepth(30);
     this.setVelocity();
     this.setAngle();
 

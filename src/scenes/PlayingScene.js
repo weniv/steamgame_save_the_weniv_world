@@ -146,7 +146,7 @@ export default class PlayingScene extends Phaser.Scene {
     this.m_timeText = this.add
       .text(Config.width / 2, 100, "00:00", { fontSize: 30 })
       .setOrigin(0.5)
-      .setDepth(105)
+      .setDepth(100)
       .setScrollFactor(0);
     this.time.addEvent({
       callback: () => {
