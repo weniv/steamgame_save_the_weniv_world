@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import HpBar from "../ui/HpBar";
 import Beam from "../effects/Beam";
 import Explosion from "../effects/Explosion";
+import Garlic from "../effects/Garlic";
 
 export const Direction = Object.freeze({
   Up: "Up",
@@ -24,7 +25,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.setDepth(20);
     this.setBodySize(28, 32);
 
-    // 1초마다 자동으로 공격
+    // beam : 1초마다 자동으로 공격
     this.scene.time.addEvent({
       delay: 1000,
       callback: () => {
@@ -54,9 +55,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     new Explosion(this.scene, this.x, this.y);
 
+    // 공격받은 후 1초 쿨타임
     this.disableBody(true, false);
     this.alpha = 0.5;
-    // 공격받은 후 1초 쿨타임
     this.scene.time.addEvent({
       delay: 1000,
       callback: this.resetPlayer,

@@ -8,6 +8,7 @@ import global_pause from "../utils/pause";
 import level_pause from "../utils/levelup";
 import { getTimeString } from "../utils/time";
 import { getRandomPosition } from "../utils/math";
+import Garlic from "../effects/Garlic";
 
 export default class PlayingScene extends Phaser.Scene {
   constructor() {
@@ -75,15 +76,18 @@ export default class PlayingScene extends Phaser.Scene {
       )
     );
 
-    // projectiles
-    this.m_projectiles = this.add.group();
-
-    // exp up item
-    this.m_expUps = this.physics.add.group();
-
     // player
     this.m_player = new Player(this);
     this.cameras.main.startFollow(this.m_player);
+    
+    // attacks
+    this.m_projectiles = this.add.group();
+    this.m_weaponStatic = this.add.group();
+    this.m_garlic = new Garlic(this, this.m_player);
+    this.m_weaponStatic.add(this.m_garlic);
+
+    // exp up item
+    this.m_expUps = this.physics.add.group();
 
     // keys
     this.m_cursorKeys = this.input.keyboard.createCursorKeys();
@@ -129,7 +133,15 @@ export default class PlayingScene extends Phaser.Scene {
       null,
       this
     );
-    this.physics.add.overlap(this.m_projectiles, this.m_mobs, null, null, this);
+    this.physics.add.overlap(
+      this.m_weaponStatic,
+      this.m_mobs,
+      (garlic, mob) => {
+        mob.hitByGarlic(1);
+      },
+      null,
+      this
+    );
 
     // event handler
     // ESC 키를 눌러 일시정지 할 수 있습니다.
