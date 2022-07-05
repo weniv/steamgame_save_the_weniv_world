@@ -28,10 +28,6 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
       this.play(animKey);
     }
 
-    this.on("overlapstart", (projectile) => {
-      this.hit(projectile, 10);
-    });
-
     // 계속해서(0.1초마다) player 방향으로 움직이도록 해줍니다.
     this.m_events = [];
     this.m_events.push(
@@ -62,12 +58,12 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
   }
 
   // mob이 공격에 맞을 경우 실행되는 함수
-  hit(projectile, damage) {
+  hit(weaponDynamic, damage) {
     this.m_hp -= damage;
     this.scene.m_hitMobSound.play();
 
     // TODO: 관통 무기
-    projectile.destroy();
+    weaponDynamic.destroy();
   }
 
   hitByGarlic(damage) {

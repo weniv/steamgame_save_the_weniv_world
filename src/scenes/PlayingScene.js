@@ -81,7 +81,7 @@ export default class PlayingScene extends Phaser.Scene {
     this.cameras.main.startFollow(this.m_player);
 
     // attacks
-    this.m_projectiles = this.add.group();
+    this.m_weaponDynamic = this.add.group();
     this.m_weaponStatic = this.add.group();
     this.m_weaponStatic.add(new Garlic(this, this.m_player.x, this.m_player.y));
 
@@ -124,10 +124,10 @@ export default class PlayingScene extends Phaser.Scene {
       this
     );
     this.physics.add.overlap(
-      this.m_projectiles,
+      this.m_weaponDynamic,
       this.m_mobs,
-      (projectile, mob) => {
-        mob.hit(projectile, 10);
+      (weapon, mob) => {
+        mob.hit(weapon, 10);
       },
       null,
       this
