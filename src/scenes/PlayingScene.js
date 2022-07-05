@@ -169,7 +169,7 @@ export default class PlayingScene extends Phaser.Scene {
     });
 
     // 처음에 나타날 mob을 추가해줍니다.
-    this.addMob("mob1", "mob1_anim", 10, 0.9);
+    this.addMob("mob1", "mob1_anim", 100, 0.9);
   }
   //////////////////////////// END OF create() ////////////////////////////
 
