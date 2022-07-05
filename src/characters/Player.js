@@ -21,13 +21,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.m_moving = false;
 
     // beam : 1초마다 자동으로 공격
-    this.scene.time.addEvent({
-      delay: 1000,
-      callback: () => {
-        this.shootBeam();
-      },
-      loop: true,
-    });
+    // this.scene.time.addEvent({
+    //   delay: 1000,
+    //   callback: () => {
+    //     this.shootBeam();
+    //   },
+    //   loop: true,
+    // });
   }
 
   // mob과 접촉했을 경우 실행되는 함수

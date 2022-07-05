@@ -10,6 +10,7 @@ import { getTimeString } from "../utils/time";
 import { getRandomPosition } from "../utils/math";
 import Garlic from "../effects/Garlic";
 import MobSpawner from "../characters/MobSpawner";
+import Whip from "../effects/Whip";
 
 export default class PlayingScene extends Phaser.Scene {
   constructor() {
@@ -62,7 +63,17 @@ export default class PlayingScene extends Phaser.Scene {
     // attacks
     this.m_weaponDynamic = this.add.group();
     this.m_weaponStatic = this.add.group();
-    this.m_weaponStatic.add(new Garlic(this, this.m_player.x, this.m_player.y));
+    // this.m_weaponStatic.add(new Garlic(this, this.m_player.x, this.m_player.y));
+    // this.m_weaponStatic.add(new Whip(this, this.m_player));
+    this.time.addEvent({
+      delay: Whip.REPEAT_GAP,
+      callback: () => {
+        // new Whip(this, this.m_player.x - 40, this.m_player.y);
+        new Whip(this, this.m_player.x - 40 + 80*(this.m_player.flipX), this.m_player.y);
+        console.log(this.m_player.flipX);
+      },
+      loop: true,
+    });
 
     // exp up item
     this.m_expUps = this.physics.add.group();

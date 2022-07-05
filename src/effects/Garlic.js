@@ -1,5 +1,4 @@
 import Phaser from "phaser";
-
 import Player from "../characters/Player"
 
 export default class Garlic extends Phaser.Physics.Arcade.Sprite {
