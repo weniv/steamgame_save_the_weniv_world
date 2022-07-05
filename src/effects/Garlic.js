@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-import Player, { Direction } from "../characters/Player"
+import Player from "../characters/Player"
 
 export default class Garlic extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
@@ -15,25 +15,8 @@ export default class Garlic extends Phaser.Physics.Arcade.Sprite {
     this.setDepth(5);
   }
 
-  move(direction) {
-    switch (direction) {
-      case Direction.Up:
-        this.y -= Player.PLAYER_SPEED;
-        break;
-
-      case Direction.Down:
-        this.y += Player.PLAYER_SPEED;
-        break;
-
-      case Direction.Left:
-        this.x -= Player.PLAYER_SPEED;
-        this.flipX = false;
-        break;
-
-      case Direction.Right:
-        this.x += Player.PLAYER_SPEED;
-        this.flipX = true;
-        break;
-    }
+  move(vector) {
+    this.x += vector[0] * Player.PLAYER_SPEED;
+    this.y += vector[1] * Player.PLAYER_SPEED;
   }
 }

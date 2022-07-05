@@ -240,7 +240,7 @@ export default class PlayingScene extends Phaser.Scene {
   }
 
   movePlayerManager() {
-    // Why not working?
+    // 이동 키가 눌려있으면 player 걸어다니는 애니메이션 재생
     if (this.m_cursorKeys.left.isDown || this.m_cursorKeys.right.isDown || this.m_cursorKeys.up.isDown || this.m_cursorKeys.down.isDown || this.m_wasdKeys.left.isDown || this.m_wasdKeys.right.isDown || this.m_wasdKeys.up.isDown || this.m_wasdKeys.down.isDown) {
       if (!this.m_player.m_moving) {
         this.m_player.play("player_anim");
@@ -253,30 +253,23 @@ export default class PlayingScene extends Phaser.Scene {
       this.m_player.m_moving = false;
     }
 
-    // TODO: refactor
+    // player, weaponStatic의 움직임 관리
+    let vector = [0, 0];
     if (this.m_cursorKeys.left.isDown || this.m_wasdKeys.left.isDown) {
-      this.m_player.move(Direction.Left);
-      this.m_weaponStatic.children.each(sprite => {
-        sprite.move(Direction.Left);
-      }, this);
+      vector = [-1, 0];
     } else if (this.m_cursorKeys.right.isDown || this.m_wasdKeys.right.isDown) {
-      this.m_player.move(Direction.Right);
-      this.m_weaponStatic.children.each(sprite => {
-        sprite.move(Direction.Right);
-      }, this);
+      vector = [1, 0];
+    }
+    if (this.m_cursorKeys.up.isDown || this.m_wasdKeys.up.isDown) {
+      vector = [0, -1];
+    } else if (this.m_cursorKeys.down.isDown || this.m_wasdKeys.down.isDown) {
+      vector = [0, 1];
     }
 
-    if (this.m_cursorKeys.up.isDown || this.m_wasdKeys.up.isDown) {
-      this.m_player.move(Direction.Up);
-      this.m_weaponStatic.children.each(sprite => {
-        sprite.move(Direction.Up);
-      }, this);
-    } else if (this.m_cursorKeys.down.isDown || this.m_wasdKeys.down.isDown) {
-      this.m_player.move(Direction.Down);
-      this.m_weaponStatic.children.each(sprite => {
-        sprite.move(Direction.Down);
-      }, this);
-    }
+    this.m_player.move(vector);
+    this.m_weaponStatic.children.each(weapon => {
+      weapon.move(vector);
+    }, this);
   }
 
   // 반투명 검은 veil 화면을 만들어줍니다.

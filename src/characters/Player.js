@@ -2,14 +2,6 @@ import Phaser from "phaser";
 import HpBar from "../ui/HpBar";
 import Beam from "../effects/Beam";
 import Explosion from "../effects/Explosion";
-import Garlic from "../effects/Garlic";
-
-export const Direction = Object.freeze({
-  Up: "Up",
-  Down: "Down",
-  Left: "Left",
-  Right: "Right",
-});
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
   static PLAYER_SPEED = 3;
@@ -75,26 +67,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     });
   }
 
-  move(direction) {
-    switch (direction) {
-      case Direction.Up:
-        this.y -= Player.PLAYER_SPEED;
-        break;
-
-      case Direction.Down:
-        this.y += Player.PLAYER_SPEED;
-        break;
-
-      case Direction.Left:
-        this.x -= Player.PLAYER_SPEED;
-        this.flipX = false;
-        break;
-
-      case Direction.Right:
-        this.x += Player.PLAYER_SPEED;
-        this.flipX = true;
-        break;
-    }
+  move(vector) {
+    this.x += vector[0] * Player.PLAYER_SPEED;
+    this.y += vector[1] * Player.PLAYER_SPEED;
+    if (vector[0] < 0) this.flipX = false;
+    else this.flipX = true;
   }
 
   shootBeam() {
