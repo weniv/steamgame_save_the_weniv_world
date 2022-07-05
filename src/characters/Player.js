@@ -70,8 +70,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   move(vector) {
     this.x += vector[0] * Player.PLAYER_SPEED;
     this.y += vector[1] * Player.PLAYER_SPEED;
-    if (vector[0] < 0) this.flipX = false;
-    else this.flipX = true;
+    if (vector[0] === -1) this.flipX = false;
+    else if (vector[0] === 1) this.flipX = true;
   }
 
   shootBeam() {
