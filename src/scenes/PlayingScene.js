@@ -2,13 +2,14 @@ import Phaser from "phaser";
 import Config from "../Config";
 import TopBar from "../ui/TopBar";
 import ExpBar from "../ui/ExpBar";
-import Player, { Direction } from "../characters/Player";
+import Player from "../characters/Player";
 import Mob from "../characters/Mob";
 import global_pause from "../utils/pause";
 import level_pause from "../utils/levelup";
 import { getTimeString } from "../utils/time";
 import { getRandomPosition } from "../utils/math";
 import Garlic from "../effects/Garlic";
+import MobSpawner from "../characters/MobSpawner";
 
 export default class PlayingScene extends Phaser.Scene {
   constructor() {
@@ -35,19 +36,6 @@ export default class PlayingScene extends Phaser.Scene {
     this.m_pauseInSound = this.sound.add("audio_pauseIn");
     this.m_pauseOutSound = this.sound.add("audio_pauseOut");
 
-    // this.m_music = this.sound.add("music");
-    // const musicConfig = {
-    //   mute: true,
-    //   // mute: false,
-    //   volume: 0.7,
-    //   rate: 1,
-    //   detune: 0,
-    //   seek: 0,
-    //   loop: true,
-    //   delay: 0,
-    // };
-    // this.m_music.play(musicConfig);
-
     // background
     this.m_background = this.add.tileSprite(
       0,
@@ -65,16 +53,7 @@ export default class PlayingScene extends Phaser.Scene {
     // mobs
     this.m_mobs = this.physics.add.group();
     // 맨 처음 mob 하나 추가 (안 추가하면 closest mob 찾는 부분에서 에러 발생)
-    this.m_mobs.add(
-      new Mob(
-        this,
-        Config.width / 2 - 200,
-        Config.height / 2 - 200,
-        "mob1",
-        "mob1_anim",
-        10
-      )
-    );
+    this.m_mobs.add(new Mob(this, 0, 0, "mob1", "mob1_anim", 10));
 
     // player
     this.m_player = new Player(this);
@@ -169,7 +148,8 @@ export default class PlayingScene extends Phaser.Scene {
     });
 
     // 처음에 나타날 mob을 추가해줍니다.
-    this.addMob("mob1", "mob1_anim", 100, 0.9);
+    this.m_mobSpawner = new MobSpawner(this);
+    this.m_mobSpawner.addMobEvent(1000, "mob1", "mob1_anim", 10, 0.9);
   }
   //////////////////////////// END OF create() ////////////////////////////
 
@@ -211,32 +191,15 @@ export default class PlayingScene extends Phaser.Scene {
   afterLevelUp() {
     this.m_topBar.gainLevel();
 
-    // TODO : 노가다 -> brilliant way
-    // 지금 방식 = 레벨업 할 때마다 mob 종류 추가 (없어지진 않음 ㅋ)
+    // 레벨에 따라 mob event를 추가 및 삭제해주는 부분
+    // TODO : refactor?
     if (this.m_topBar.m_level == 2) {
-      this.addMob("mob2", "mob2_anim", 20, 0.6);
+      this.m_mobSpawner.removeOldestMobEvent();
+      this.m_mobSpawner.addMobEvent(1000, "mob2", "mob2_anim", 20, 0.8);
     } else if (this.m_topBar.m_level == 3) {
-      this.addMob("mob3", "mob3_anim", 30, 0.3);
+      this.m_mobSpawner.removeOldestMobEvent();
+      this.m_mobSpawner.addMobEvent(2000, "mob3", "mob3_anim", 30, 0.7);
     }
-  }
-
-  // mob이 1초마다 생성되도록 event를 생성해줍니다.
-  addMob(mobTexture, mobAnim, mobHp, mobDropRate) {
-    this.time.addEvent({
-      delay: 1000,
-      callback: () => {
-        // 화면 바깥에서 나타나도록 해줍니다.
-        const r =
-          Math.sqrt(
-            Config.width * Config.width + Config.height * Config.height
-          ) / 2;
-        let [x, y] = getRandomPosition(this.m_player.x, this.m_player.y, r);
-        this.m_mobs.add(
-          new Mob(this, x, y, mobTexture, mobAnim, mobHp, mobDropRate)
-        );
-      },
-      loop: true,
-    });
   }
 
   movePlayerManager() {
