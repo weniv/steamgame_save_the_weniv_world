@@ -2,8 +2,11 @@ import Phaser from "phaser";
 import Player from "../characters/Player"
 
 export default class Garlic extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y) {
+  constructor(scene, player, damage) {
+    const x = player.x;
+    const y = player.y;
     super(scene, x, y, "beam");
+    this.m_damage = damage;
 
     scene.add.existing(this);
     scene.physics.world.enableBody(this);

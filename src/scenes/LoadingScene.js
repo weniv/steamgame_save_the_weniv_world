@@ -8,13 +8,12 @@ import beamImg from "../assets/images/beam.png";
 import explosionImg from "../assets/spritesheets/explosion.png";
 import playerImg from "../assets/spritesheets/player.png";
 import expUpImg from "../assets/spritesheets/expUp.png";
-import mob1Img from "../assets/spritesheets/mob1.png";
-import mob2Img from "../assets/spritesheets/mob2.png";
-import mob3Img from "../assets/spritesheets/mob3.png";
-import mob4Img from "../assets/spritesheets/mob4.png";
+import mobImg1 from "../assets/spritesheets/mob1.png";
+import mobImg2 from "../assets/spritesheets/mob2.png";
+import mobImg3 from "../assets/spritesheets/mob3.png";
+import mobImg4 from "../assets/spritesheets/mob4.png";
 import lionImg from "../assets/spritesheets/lion.png";
 
-// import bgmOgg from "../assets/sounds/lofi-bgm.ogg";
 import beamOgg from "../assets/sounds/beam.ogg";
 import hitMobOgg from "../assets/sounds/hitMob.ogg";
 import explosionOgg from "../assets/sounds/explosion.ogg";
@@ -38,19 +37,19 @@ export default class LoadingScene extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 36,
     });
-    this.load.spritesheet("mob1", mob1Img, {
+    this.load.spritesheet("mob1", mobImg1, {
       frameWidth: 28,
       frameHeight: 28,
     });
-    this.load.spritesheet("mob2", mob2Img, {
+    this.load.spritesheet("mob2", mobImg2, {
       frameWidth: 32,
       frameHeight: 32,
     });
-    this.load.spritesheet("mob3", mob3Img, {
+    this.load.spritesheet("mob3", mobImg3, {
       frameWidth: 32,
       frameHeight: 32,
     });
-    this.load.spritesheet("mob4", mob4Img, {
+    this.load.spritesheet("mob4", mobImg4, {
       frameWidth: 32,
       frameHeight: 32,
     });

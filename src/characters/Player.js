@@ -1,6 +1,5 @@
 import Phaser from "phaser";
 import HpBar from "../ui/HpBar";
-import Beam from "../effects/Beam";
 import Explosion from "../effects/Explosion";
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
@@ -19,15 +18,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.setBodySize(28, 32);
 
     this.m_moving = false;
-
-    // beam : 1초마다 자동으로 공격
-    // this.scene.time.addEvent({
-    //   delay: 1000,
-    //   callback: () => {
-    //     this.shootBeam();
-    //   },
-    //   loop: true,
-    // });
   }
 
   // mob과 접촉했을 경우 실행되는 함수
@@ -72,10 +62,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.y += vector[1] * Player.PLAYER_SPEED;
     if (vector[0] === -1) this.flipX = false;
     else if (vector[0] === 1) this.flipX = true;
-  }
-
-  shootBeam() {
-    new Beam(this.scene, this);
   }
 
   // HP 회복 (not in use now)

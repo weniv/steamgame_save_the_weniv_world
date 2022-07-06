@@ -5,8 +5,11 @@ export default class Whip extends Phaser.Physics.Arcade.Sprite {
   static REPEAT_GAP = 1000;
   static DURATION = 500;
 
-  constructor(scene, x, y) {
-    super(scene, x, y-40, "beam");
+  constructor(scene, player, damage) {
+    const x = player.x - 40 + 80*(player.flipX);
+    const y = player.y - 40;
+    super(scene, x, y, "beam");
+    this.m_damage = damage;
 
     scene.add.existing(this);
     scene.physics.world.enableBody(this);

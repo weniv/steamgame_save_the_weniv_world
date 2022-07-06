@@ -9,8 +9,9 @@ import level_pause from "../utils/levelup";
 import { getTimeString } from "../utils/time";
 import { getRandomPosition } from "../utils/math";
 import Garlic from "../effects/Garlic";
-import MobSpawner from "../characters/MobSpawner";
+import MobManager from "../utils/MobManager";
 import Whip from "../effects/Whip";
+import AttackManager from "../utils/AttackManager";
 
 export default class PlayingScene extends Phaser.Scene {
   constructor() {
@@ -63,17 +64,10 @@ export default class PlayingScene extends Phaser.Scene {
     // attacks
     this.m_weaponDynamic = this.add.group();
     this.m_weaponStatic = this.add.group();
-    // this.m_weaponStatic.add(new Garlic(this, this.m_player.x, this.m_player.y));
-    // this.m_weaponStatic.add(new Whip(this, this.m_player));
-    this.time.addEvent({
-      delay: Whip.REPEAT_GAP,
-      callback: () => {
-        // new Whip(this, this.m_player.x - 40, this.m_player.y);
-        new Whip(this, this.m_player.x - 40 + 80*(this.m_player.flipX), this.m_player.y);
-        console.log(this.m_player.flipX);
-      },
-      loop: true,
-    });
+
+    this.m_attackManager = new AttackManager(this);
+    this.m_attackManager.addAttackEvent("garlic", 10, 0);
+
 
     // exp up item
     this.m_expUps = this.physics.add.group();
@@ -117,7 +111,7 @@ export default class PlayingScene extends Phaser.Scene {
       this.m_weaponDynamic,
       this.m_mobs,
       (weapon, mob) => {
-        mob.hit(weapon, 10);
+        mob.hit(weapon, weapon.m_damage);
       },
       null,
       this
@@ -125,8 +119,8 @@ export default class PlayingScene extends Phaser.Scene {
     this.physics.add.overlap(
       this.m_weaponStatic,
       this.m_mobs,
-      (garlic, mob) => {
-        mob.hitByGarlic(1);
+      (weapon, mob) => {
+        mob.hitByStatic(weapon.m_damage);
       },
       null,
       this
@@ -159,8 +153,8 @@ export default class PlayingScene extends Phaser.Scene {
     });
 
     // 처음에 나타날 mob을 추가해줍니다.
-    this.m_mobSpawner = new MobSpawner(this);
-    this.m_mobSpawner.addMobEvent(1000, "mob1", "mob1_anim", 10, 0.9);
+    this.m_mobManager = new MobManager(this);
+    this.m_mobManager.addMobEvent(1000, "mob1", "mob1_anim", 10, 0.9);
   }
   //////////////////////////// END OF create() ////////////////////////////
 
@@ -204,12 +198,14 @@ export default class PlayingScene extends Phaser.Scene {
 
     // 레벨에 따라 mob event를 추가 및 삭제해주는 부분
     // TODO : refactor?
-    if (this.m_topBar.m_level == 2) {
-      this.m_mobSpawner.removeOldestMobEvent();
-      this.m_mobSpawner.addMobEvent(1000, "mob2", "mob2_anim", 20, 0.8);
-    } else if (this.m_topBar.m_level == 3) {
-      this.m_mobSpawner.removeOldestMobEvent();
-      this.m_mobSpawner.addMobEvent(2000, "mob3", "mob3_anim", 30, 0.7);
+    if (this.m_topBar.m_level == 3) {
+      this.m_mobManager.removeOldestMobEvent();
+      this.m_mobManager.addMobEvent(1000, "mob2", "mob2_anim", 20, 0.8);
+      this.m_attackManager.addAttackEvent("beam", 10, 1000);
+    } else if (this.m_topBar.m_level == 5) {
+      this.m_mobManager.removeOldestMobEvent();
+      this.m_mobManager.addMobEvent(2000, "mob3", "mob3_anim", 30, 0.7);
+      this.m_attackManager.addAttackEvent("whip", 10, 1000);
     }
   }
 

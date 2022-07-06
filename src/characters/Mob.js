@@ -57,7 +57,7 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
     if (this.m_hp <= 0) this.die();
   }
 
-  // mob이 공격에 맞을 경우 실행되는 함수
+  // mob이 dynamic attack에 맞을 경우 실행되는 함수
   hit(weaponDynamic, damage) {
     this.m_hp -= damage;
     this.scene.m_hitMobSound.play();
@@ -66,7 +66,7 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
     weaponDynamic.destroy();
   }
 
-  hitByGarlic(damage) {
+  hitByStatic(damage) {
     if (!this.m_canBeAttacked) return;
 
     this.m_hp -= damage;

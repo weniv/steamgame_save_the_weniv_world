@@ -1,8 +1,8 @@
-import Mob from "./Mob";
+import Mob from "../characters/Mob";
 import Config from "../Config";
-import { getRandomPosition } from "../utils/math";
+import { getRandomPosition } from "./math";
 
-export default class MobSpawner {
+export default class MobManager {
   constructor(scene) {
     this.m_scene = scene;
     this.m_mobEvents = [];

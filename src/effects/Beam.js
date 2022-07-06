@@ -4,14 +4,14 @@ export default class Beam extends Phaser.Physics.Arcade.Sprite {
   static SPEED = 100;
   static DURATION = 1500;
 
-  constructor(scene, player) {
+  constructor(scene, player, damage) {
     const x = player.x;
     const y = player.y - 16;
     super(scene, x, y, "beam");
+    this.m_damage = damage;
     
     scene.add.existing(this);
     scene.physics.world.enableBody(this);
-    
     scene.m_weaponDynamic.add(this);
     scene.m_beamSound.play();
     
@@ -53,5 +53,9 @@ export default class Beam extends Phaser.Physics.Arcade.Sprite {
     );
     this.rotation = angleToMob + Math.PI / 2;
     this.body.setAngularVelocity(0);
+  }
+
+  setDamage(damage) {
+    this.m_damage = damage;
   }
 }
