@@ -7,6 +7,7 @@ export default class ExpUp extends Phaser.Physics.Arcade.Sprite {
 
     super(scene, x, y, "exp-up");
     this.scale = 1.5;
+    this.setDepth(7);
 
     // mob 종류에 따라 경험치 상승량, 아이템 이미지를 다르게 설정하는 부분
     // m_exp : 경험치 상승량
