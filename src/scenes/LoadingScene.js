@@ -2,7 +2,9 @@ import Phaser from "phaser";
 import fontPng from "../assets/font/font.png";
 import fontXml from "../assets/font/font.xml";
 
-import bgImg from "../assets/images/background.png";
+import bgImg1 from "../assets/images/background.png";
+import bgImg2 from "../assets/images/background-2.png";
+import bgImg3 from "../assets/images/background-3.png";
 import beamImg from "../assets/images/beam.png";
 
 import explosionImg from "../assets/spritesheets/explosion.png";
@@ -31,7 +33,9 @@ export default class LoadingScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("background", bgImg);
+    this.load.image("background1", bgImg1);
+    this.load.image("background2", bgImg2);
+    this.load.image("background3", bgImg3);
     this.load.image("beam", beamImg);
     this.load.spritesheet("player", playerImg, {
       frameWidth: 32,

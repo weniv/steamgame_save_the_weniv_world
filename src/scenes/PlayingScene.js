@@ -7,11 +7,9 @@ import Mob from "../characters/Mob";
 import global_pause from "../utils/pause";
 import level_pause from "../utils/levelup";
 import { getTimeString } from "../utils/time";
-import { getRandomPosition } from "../utils/math";
-import Garlic from "../effects/Garlic";
 import MobManager from "../utils/MobManager";
-import Whip from "../effects/Whip";
 import AttackManager from "../utils/AttackManager";
+import { setBackground } from "../utils/BackgroundManager";
 
 export default class PlayingScene extends Phaser.Scene {
   constructor() {
@@ -39,14 +37,7 @@ export default class PlayingScene extends Phaser.Scene {
     this.m_pauseOutSound = this.sound.add("audio_pauseOut");
 
     // background
-    this.m_background = this.add.tileSprite(
-      0,
-      0,
-      Config.width,
-      Config.height,
-      "background"
-    );
-    this.m_background.setOrigin(0, 0);
+    setBackground(this, "background1");
 
     // topBar, expBar
     this.m_topBar = new TopBar(this);
@@ -196,13 +187,16 @@ export default class PlayingScene extends Phaser.Scene {
   afterLevelUp() {
     this.m_topBar.gainLevel();
 
-    // 레벨에 따라 mob event를 추가 및 삭제해주는 부분
+    // 레벨에 따라 (1) 배경 변경 (2) mob event를 추가 및 삭제해주는 부분
     // TODO : refactor?
-    if (this.m_topBar.m_level == 3) {
+    if (this.m_topBar.m_level === 2) {
+      setBackground(this, "background2");
+    } else if (this.m_topBar.m_level === 3) {
       this.m_mobManager.removeOldestMobEvent();
       this.m_mobManager.addMobEvent(1000, "mob2", "mob2_anim", 20, 0.8);
       this.m_attackManager.addAttackEvent("beam", 10, 1000);
-    } else if (this.m_topBar.m_level == 5) {
+      setBackground(this, "background3");
+    } else if (this.m_topBar.m_level === 5) {
       this.m_mobManager.removeOldestMobEvent();
       this.m_mobManager.addMobEvent(2000, "mob3", "mob3_anim", 30, 0.7);
       this.m_attackManager.addAttackEvent("whip", 10, 1000);
