@@ -15,6 +15,9 @@ import mobImg2 from "../assets/spritesheets/mob2.png";
 import mobImg3 from "../assets/spritesheets/mob3.png";
 import mobImg4 from "../assets/spritesheets/mob4.png";
 import lionImg from "../assets/spritesheets/lion.png";
+import catnipImg from "../assets/spritesheets/catnip.png";
+import whipWhiteImg from "../assets/spritesheets/whip-white.png";
+import whipYellowImg from "../assets/spritesheets/whip-yellow.png";
 
 import beamOgg from "../assets/sounds/beam.ogg";
 import hitMobOgg from "../assets/sounds/hitMob.ogg";
@@ -33,10 +36,13 @@ export default class LoadingScene extends Phaser.Scene {
   }
 
   preload() {
+    // IMAGES
     this.load.image("background1", bgImg1);
     this.load.image("background2", bgImg2);
     this.load.image("background3", bgImg3);
     this.load.image("beam", beamImg);
+
+    // SPRITESHEETS
     this.load.spritesheet("player", playerImg, {
       frameWidth: 32,
       frameHeight: 36,
@@ -61,19 +67,28 @@ export default class LoadingScene extends Phaser.Scene {
       frameWidth: 48,
       frameHeight: 64,
     });
-
     this.load.spritesheet("explosion", explosionImg, {
       frameWidth: 32,
       frameHeight: 32,
+    });
+    this.load.spritesheet("whip_white", whipWhiteImg, {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("whip_yellow", whipYellowImg, {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet("catnip", catnipImg, {
+      frameWidth: 64,
+      frameHeight: 64,
     });
     this.load.spritesheet("exp-up", expUpImg, {
       frameWidth: 16,
       frameHeight: 16,
     });
 
- 
-    this.load.bitmapFont("pixelFont", fontPng, fontXml);
-    // this.load.audio("music", bgmOgg);
+    // AUDIOS
     this.load.audio("audio_beam", beamOgg);
     this.load.audio("audio_hitMob", hitMobOgg);
     this.load.audio("audio_explosion", explosionOgg);
@@ -83,12 +98,16 @@ export default class LoadingScene extends Phaser.Scene {
     this.load.audio("audio_gameover", gameoverOgg);
     this.load.audio("audio_pauseIn", pauseInOgg);
     this.load.audio("audio_pauseOut", pauseOutOgg);
+
+    // FONT
+    this.load.bitmapFont("pixelFont", fontPng, fontXml);
   }
 
   create() {
     this.add.text(20, 20, "Loading game...");
     this.scene.start("mainScene");
 
+    // MOBS
     this.anims.create({
       key: "mob1_anim",
       frames: this.anims.generateFrameNumbers("mob1"),
@@ -119,6 +138,8 @@ export default class LoadingScene extends Phaser.Scene {
       frameRate: 12,
       repeat: -1,
     });
+
+    // PLAYERS
     this.anims.create({
       key: "player_anim",
       frames: this.anims.generateFrameNumbers("player"),
@@ -135,6 +156,7 @@ export default class LoadingScene extends Phaser.Scene {
       repeat: 0,
     });
 
+    // EFFECT
     this.anims.create({
       key: "explode",
       frames: this.anims.generateFrameNumbers("explosion"),
@@ -143,6 +165,29 @@ export default class LoadingScene extends Phaser.Scene {
       hideOnComplete: true,
     });
 
+    // ATTACKS
+    this.anims.create({
+      key: "whip_white_anim",
+      frames: this.anims.generateFrameNumbers("whip_white"),
+      frameRate: 20,
+      repeat: 0,
+      hideOnComplete: true,
+    });
+    this.anims.create({
+      key: "whip_yellow_anim",
+      frames: this.anims.generateFrameNumbers("whip_yellow"),
+      frameRate: 20,
+      repeat: 0,
+      hideOnComplete: true,
+    });
+    this.anims.create({
+      key: "catnip_anim",
+      frames: this.anims.generateFrameNumbers("catnip"),
+      frameRate: 20,
+      repeat: -1,
+    });
+
+    // EXP UP ITEMS
     this.anims.create({
       key: "red",
       frames: this.anims.generateFrameNumbers("exp-up", {

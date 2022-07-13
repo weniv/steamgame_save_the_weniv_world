@@ -191,15 +191,14 @@ export default class PlayingScene extends Phaser.Scene {
     // TODO : refactor?
     if (this.m_topBar.m_level === 2) {
       setBackground(this, "background2");
-    } else if (this.m_topBar.m_level === 3) {
       this.m_mobManager.removeOldestMobEvent();
       this.m_mobManager.addMobEvent(1000, "mob2", "mob2_anim", 20, 0.8);
-      this.m_attackManager.addAttackEvent("beam", 10, 1000);
+      this.m_attackManager.addAttackEvent("whip", 10, 1000);
+    } else if (this.m_topBar.m_level === 3) {
       setBackground(this, "background3");
-    } else if (this.m_topBar.m_level === 5) {
       this.m_mobManager.removeOldestMobEvent();
       this.m_mobManager.addMobEvent(2000, "mob3", "mob3_anim", 30, 0.7);
-      this.m_attackManager.addAttackEvent("whip", 10, 1000);
+      this.m_attackManager.addAttackEvent("beam", 10, 1000);
     }
   }
 

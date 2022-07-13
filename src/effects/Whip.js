@@ -8,7 +8,8 @@ export default class Whip extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, player, damage) {
     const x = player.x - 40 + 80*(player.flipX);
     const y = player.y - 40;
-    super(scene, x, y, "beam");
+    super(scene, x, y, "whip_white");
+    this.play("whip_white_anim");
     this.m_damage = damage;
 
     scene.add.existing(this);
