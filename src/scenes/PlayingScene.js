@@ -8,8 +8,8 @@ import global_pause from "../utils/pause";
 import level_pause from "../utils/levelup";
 import { getTimeString } from "../utils/time";
 import MobManager from "../utils/MobManager";
-import AttackManager from "../utils/AttackManager";
-import { setBackground } from "../utils/BackgroundManager";
+import { setBackground } from "../utils/backgroundManager";
+import { addAttackEvent, setGarlicScale } from "../utils/attackManager";
 
 export default class PlayingScene extends Phaser.Scene {
   constructor() {
@@ -56,9 +56,8 @@ export default class PlayingScene extends Phaser.Scene {
     this.m_weaponDynamic = this.add.group();
     this.m_weaponStatic = this.add.group();
 
-    this.m_attackManager = new AttackManager(this);
-    this.m_attackManager.addAttackEvent("garlic", 10, 0);
-
+    this.m_attackEvents = {};
+    addAttackEvent(this, "garlic", 10, 0);
 
     // exp up item
     this.m_expUps = this.physics.add.group();
@@ -191,14 +190,15 @@ export default class PlayingScene extends Phaser.Scene {
     // TODO : refactor?
     if (this.m_topBar.m_level === 2) {
       setBackground(this, "background2");
+      addAttackEvent(this, "whip", 10, 1000);
+      setGarlicScale(this, 3);
       this.m_mobManager.removeOldestMobEvent();
       this.m_mobManager.addMobEvent(1000, "mob2", "mob2_anim", 20, 0.8);
-      this.m_attackManager.addAttackEvent("whip", 10, 1000);
     } else if (this.m_topBar.m_level === 3) {
       setBackground(this, "background3");
+      addAttackEvent(this, "beam", 10, 1000);
       this.m_mobManager.removeOldestMobEvent();
       this.m_mobManager.addMobEvent(2000, "mob3", "mob3_anim", 30, 0.7);
-      this.m_attackManager.addAttackEvent("beam", 10, 1000);
     }
   }
 
