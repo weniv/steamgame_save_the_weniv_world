@@ -13,7 +13,7 @@ export default class ExpUp extends Phaser.Physics.Arcade.Sprite {
     // m_exp : 경험치 상승량
     switch (mob.texture.key) {
       case 'mob1':
-        this.m_exp = 10;
+        this.m_exp = 100;
         this.play("red");
         break;
       case 'mob2':

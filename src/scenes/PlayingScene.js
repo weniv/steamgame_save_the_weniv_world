@@ -4,10 +4,10 @@ import TopBar from "../ui/TopBar";
 import ExpBar from "../ui/ExpBar";
 import Player from "../characters/Player";
 import Mob from "../characters/Mob";
-import global_pause from "../utils/pause";
-import level_pause from "../utils/levelup";
+import { global_pause, createPauseScreen } from "../utils/pause";
+import { level_pause, createLevelScreen } from "../utils/levelup";
 import { getTimeString } from "../utils/time";
-import { setBackground } from "../utils/backgroundManager";
+import { createVeil, setBackground } from "../utils/backgroundManager";
 import  { addMobEvent, removeOldestMobEvent } from "../utils/mobManager";
 import { addAttackEvent, setCatnipScale } from "../utils/attackManager";
 
@@ -19,9 +19,9 @@ export default class PlayingScene extends Phaser.Scene {
   create() {
     // pause
     // 일시정지 또는 레벨업 했을 시 보여줄 화면을 만들어놓는 부분
-    this.createVeil();
-    this.createPauseScreen();
-    this.createLevelScreen();
+    createVeil(this);
+    createPauseScreen(this);
+    createLevelScreen(this);
 
     // sound
     // 사용할 sound들을 추가해놓는 부분
@@ -230,53 +230,5 @@ export default class PlayingScene extends Phaser.Scene {
     this.m_weaponStatic.children.each(weapon => {
       weapon.move(vector);
     }, this);
-  }
-
-  // 반투명 검은 veil 화면을 만들어줍니다.
-  createVeil() {
-    this.m_veil = this.add.graphics({ x: 0, y: 0 });
-    this.m_veil.fillStyle(0x000000, 0.3);
-    this.m_veil.fillRect(0, 0, Config.width, Config.height);
-    this.m_veil.setDepth(110);
-    this.m_veil.setScrollFactor(0);
-  }
-
-  // level up 했을 때의 화면을 만들어줍니다.
-  createLevelScreen() {
-    const texts = [
-      "You're on the Next Level!",
-      "",
-      "Press Enter to Keep Going",
-    ];
-    this.m_textLevel = this.add
-      .text(Config.width / 2, Config.height / 2, texts, { fontSize: 40 })
-      .setOrigin(0.5)
-      .setDepth(120)
-      .setScrollFactor(0);
-
-    // 처음에는 보이지 않게 감춰줍니다.
-    this.toggleLevelScreen(false);
-  }
-
-  toggleLevelScreen(isVisible) {
-    this.m_veil.setVisible(isVisible);
-    this.m_textLevel.setVisible(isVisible);
-  }
-
-  // 일시정지 했을 때의 화면을 만들어줍니다.
-  createPauseScreen() {
-    this.m_textPause = this.add
-      .text(Config.width / 2, Config.height / 2, "Pause", { fontSize: 50 })
-      .setOrigin(0.5)
-      .setDepth(120)
-      .setScrollFactor(0);
-
-    // 처음에는 보이지 않게 감춰줍니다.
-    this.togglePauseScreen(false);
-  }
-
-  togglePauseScreen(isVisible) {
-    this.m_veil.setVisible(isVisible);
-    this.m_textPause.setVisible(isVisible);
   }
 }
