@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import Player from "../characters/Player"
 
-export default class Garlic extends Phaser.Physics.Arcade.Sprite {
+export default class Catnip extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, player, damage) {
     const x = player.x;
     const y = player.y + 20;

@@ -16,8 +16,8 @@ import mobImg3 from "../assets/spritesheets/mob3.png";
 import mobImg4 from "../assets/spritesheets/mob4.png";
 import lionImg from "../assets/spritesheets/lion.png";
 import catnipImg from "../assets/spritesheets/catnip.png";
-import whipWhiteImg from "../assets/spritesheets/whip-white.png";
-import whipYellowImg from "../assets/spritesheets/whip-yellow.png";
+import clawWhiteImg from "../assets/spritesheets/claw-white.png";
+import clawYellowImg from "../assets/spritesheets/claw-yellow.png";
 
 import beamOgg from "../assets/sounds/beam.ogg";
 import hitMobOgg from "../assets/sounds/hitMob.ogg";
@@ -71,11 +71,11 @@ export default class LoadingScene extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 32,
     });
-    this.load.spritesheet("whip_white", whipWhiteImg, {
+    this.load.spritesheet("claw_white", clawWhiteImg, {
       frameWidth: 32,
       frameHeight: 32,
     });
-    this.load.spritesheet("whip_yellow", whipYellowImg, {
+    this.load.spritesheet("claw_yellow", clawYellowImg, {
       frameWidth: 32,
       frameHeight: 32,
     });
@@ -147,7 +147,7 @@ export default class LoadingScene extends Phaser.Scene {
       repeat: -1,
     });
     this.anims.create({
-      key: "player_still",
+      key: "player_idle",
       frames: this.anims.generateFrameNumbers("player", {
         start: 0,
         end: 0,
@@ -167,15 +167,15 @@ export default class LoadingScene extends Phaser.Scene {
 
     // ATTACKS
     this.anims.create({
-      key: "whip_white_anim",
-      frames: this.anims.generateFrameNumbers("whip_white"),
+      key: "scratch_white",
+      frames: this.anims.generateFrameNumbers("claw_white"),
       frameRate: 20,
       repeat: 0,
       hideOnComplete: true,
     });
     this.anims.create({
-      key: "whip_yellow_anim",
-      frames: this.anims.generateFrameNumbers("whip_yellow"),
+      key: "scratch_yellow",
+      frames: this.anims.generateFrameNumbers("claw_yellow"),
       frameRate: 20,
       repeat: 0,
       hideOnComplete: true,

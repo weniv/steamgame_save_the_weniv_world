@@ -1,15 +1,15 @@
 import Phaser from "phaser";
 import Player from "../characters/Player";
 
-export default class Whip extends Phaser.Physics.Arcade.Sprite {
+export default class Claw extends Phaser.Physics.Arcade.Sprite {
   static REPEAT_GAP = 1000;
   static DURATION = 500;
 
   constructor(scene, player, damage) {
     const x = player.x - 40 + 80*(player.flipX);
     const y = player.y - 40;
-    super(scene, x, y, "whip_white");
-    this.play("whip_white_anim");
+    super(scene, x, y, "claw_white");
+    this.play("scratch_white");
     this.m_damage = damage;
 
     scene.add.existing(this);
@@ -20,7 +20,7 @@ export default class Whip extends Phaser.Physics.Arcade.Sprite {
     this.setDepth(30);
     
     scene.time.addEvent({
-      delay: Whip.DURATION,
+      delay: Claw.DURATION,
       callback: () => {
         this.destroy();
       },

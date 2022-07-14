@@ -7,9 +7,9 @@ import Mob from "../characters/Mob";
 import global_pause from "../utils/pause";
 import level_pause from "../utils/levelup";
 import { getTimeString } from "../utils/time";
-import MobManager from "../utils/MobManager";
 import { setBackground } from "../utils/backgroundManager";
-import { addAttackEvent, setGarlicScale } from "../utils/attackManager";
+import  { addMobEvent, removeOldestMobEvent } from "../utils/mobManager";
+import { addAttackEvent, setCatnipScale } from "../utils/attackManager";
 
 export default class PlayingScene extends Phaser.Scene {
   constructor() {
@@ -36,28 +36,29 @@ export default class PlayingScene extends Phaser.Scene {
     this.m_pauseInSound = this.sound.add("audio_pauseIn");
     this.m_pauseOutSound = this.sound.add("audio_pauseOut");
 
-    // background
-    setBackground(this, "background1");
-
     // topBar, expBar
     this.m_topBar = new TopBar(this);
     this.m_expBar = new ExpBar(this, 50);
-
-    // mobs
-    this.m_mobs = this.physics.add.group();
-    // 맨 처음 mob 하나 추가 (안 추가하면 closest mob 찾는 부분에서 에러 발생)
-    this.m_mobs.add(new Mob(this, 0, 0, "mob1", "mob1_anim", 10));
 
     // player
     this.m_player = new Player(this);
     this.cameras.main.startFollow(this.m_player);
 
+    // background
+    setBackground(this, "background1");
+
+    // mobs
+    this.m_mobs = this.physics.add.group();
+    // 맨 처음 mob 하나 추가 (안 추가하면 closest mob 찾는 부분에서 에러 발생)
+    this.m_mobs.add(new Mob(this, 0, 0, "mob1", "mob1_anim", 10));
+    this.m_mobEvents = [];
+    addMobEvent(this, 1000, "mob1", "mob1_anim", 10, 0.9);
+
     // attacks
     this.m_weaponDynamic = this.add.group();
     this.m_weaponStatic = this.add.group();
-
     this.m_attackEvents = {};
-    addAttackEvent(this, "garlic", 10, 0);
+    addAttackEvent(this, "catnip", 10, 0);
 
     // exp up item
     this.m_expUps = this.physics.add.group();
@@ -141,10 +142,6 @@ export default class PlayingScene extends Phaser.Scene {
       delay: 1000,
       loop: true,
     });
-
-    // 처음에 나타날 mob을 추가해줍니다.
-    this.m_mobManager = new MobManager(this);
-    this.m_mobManager.addMobEvent(1000, "mob1", "mob1_anim", 10, 0.9);
   }
   //////////////////////////// END OF create() ////////////////////////////
 
@@ -190,15 +187,15 @@ export default class PlayingScene extends Phaser.Scene {
     // TODO : refactor?
     if (this.m_topBar.m_level === 2) {
       setBackground(this, "background2");
-      addAttackEvent(this, "whip", 10, 1000);
-      setGarlicScale(this, 3);
-      this.m_mobManager.removeOldestMobEvent();
-      this.m_mobManager.addMobEvent(1000, "mob2", "mob2_anim", 20, 0.8);
+      addAttackEvent(this, "claw", 10, 1000);
+      setCatnipScale(this, 3);
+      removeOldestMobEvent(this);
+      addMobEvent(this, 1000, "mob2", "mob2_anim", 20, 0.8);
     } else if (this.m_topBar.m_level === 3) {
       setBackground(this, "background3");
       addAttackEvent(this, "beam", 10, 1000);
-      this.m_mobManager.removeOldestMobEvent();
-      this.m_mobManager.addMobEvent(2000, "mob3", "mob3_anim", 30, 0.7);
+      removeOldestMobEvent(this);
+      addMobEvent(this, 2000, "mob3", "mob3_anim", 30, 0.7);
     }
   }
 
@@ -211,7 +208,7 @@ export default class PlayingScene extends Phaser.Scene {
       this.m_player.m_moving = true;
     } else {
       if (this.m_player.m_moving) {
-        this.m_player.play("player_still");
+        this.m_player.play("player_idle");
       }
       this.m_player.m_moving = false;
     }

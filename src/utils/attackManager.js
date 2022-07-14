@@ -1,6 +1,6 @@
 import Beam from "../effects/Beam";
-import Whip from "../effects/Whip";
-import Garlic from "../effects/Garlic";
+import Claw from "../effects/Claw";
+import Catnip from "../effects/Catnip";
 
 export function addAttackEvent(scene, attackType, attackDamage, repeatGap) {
   switch (attackType) {
@@ -15,20 +15,20 @@ export function addAttackEvent(scene, attackType, attackDamage, repeatGap) {
       scene.m_attackEvents.beam = timerBeam;
       break;
 
-    case "whip":
-      const timerWhip = scene.time.addEvent({
+    case "claw":
+      const timerClaw = scene.time.addEvent({
         delay: repeatGap,
         callback: () => {
-          useWhip(scene, attackDamage);
+          scratchClaw(scene, attackDamage);
         },
         loop: true,
       });
-      scene.m_attackEvents.whip = timerWhip;
+      scene.m_attackEvents.claw = timerClaw;
       break;
 
-    case "garlic":
-      const garlic = useGarlic(scene, attackDamage);
-      scene.m_attackEvents.garlic = garlic;
+    case "catnip":
+      const catnip = useCatnip(scene, attackDamage);
+      scene.m_attackEvents.catnip = catnip;
       break;
   }
 }
@@ -37,18 +37,18 @@ function shootBeam(scene, damage) {
   new Beam(scene, scene.m_player, damage);
 }
 
-function useWhip(scene, damage) {
-  new Whip(scene, scene.m_player, damage);
+function scratchClaw(scene, damage) {
+  new Claw(scene, scene.m_player, damage);
 }
 
-function useGarlic(scene, damage) {
-  return new Garlic(scene, scene.m_player, damage);
+function useCatnip(scene, damage) {
+  return new Catnip(scene, scene.m_player, damage);
 }
 
-export function setGarlicScale(scene, scale) {
-  if (!scene.m_attackEvents.garlic) {
-    console.error('setGarlicScale error')
+export function setCatnipScale(scene, scale) {
+  if (!scene.m_attackEvents.catnip) {
+    console.error('setCatnipScale error')
   }
-  scene.m_attackEvents.garlic._scaleX = scale;
-  scene.m_attackEvents.garlic._scaleY = scale;
+  scene.m_attackEvents.catnip._scaleX = scale;
+  scene.m_attackEvents.catnip._scaleY = scale;
 }
