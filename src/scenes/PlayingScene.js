@@ -8,7 +8,7 @@ import { global_pause, createPauseScreen } from "../utils/pause";
 import { level_pause, createLevelScreen } from "../utils/levelup";
 import { getTimeString } from "../utils/time";
 import { createVeil, setBackground } from "../utils/backgroundManager";
-import  { addMobEvent, removeOldestMobEvent } from "../utils/mobManager";
+import { addMobEvent, removeOldestMobEvent } from "../utils/mobManager";
 import { addAttackEvent, setCatnipScale } from "../utils/attackManager";
 
 export default class PlayingScene extends Phaser.Scene {
