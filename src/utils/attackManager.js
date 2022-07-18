@@ -2,13 +2,13 @@ import Beam from "../effects/Beam";
 import Claw from "../effects/Claw";
 import Catnip from "../effects/Catnip";
 
-export function addAttackEvent(scene, attackType, attackDamage, repeatGap) {
+export function addAttackEvent(scene, attackType, attackDamage, attackScale, repeatGap) {
   switch (attackType) {
     case "beam":
       const timerBeam = scene.time.addEvent({
         delay: repeatGap,
         callback: () => {
-          shootBeam(scene, attackDamage);
+          shootBeam(scene, attackDamage, attackScale);
         },
         loop: true,
       });
@@ -19,7 +19,7 @@ export function addAttackEvent(scene, attackType, attackDamage, repeatGap) {
       const timerClaw = scene.time.addEvent({
         delay: repeatGap,
         callback: () => {
-          scratchClaw(scene, attackDamage);
+          scratchClaw(scene, attackDamage, attackScale);
         },
         loop: true,
       });
@@ -27,30 +27,29 @@ export function addAttackEvent(scene, attackType, attackDamage, repeatGap) {
       break;
 
     case "catnip":
-      const catnip = useCatnip(scene, attackDamage);
+      const catnip = useCatnip(scene, attackDamage, attackScale);
       scene.m_attackEvents.catnip = catnip;
       break;
   }
 }
 
-function shootBeam(scene, damage) {
-  new Beam(scene, scene.m_player, damage);
+function shootBeam(scene, damage, scale) {
+  new Beam(scene, scene.m_player, damage, scale);
 }
 
-function scratchClaw(scene, damage) {
-  new Claw(scene, scene.m_player, damage, true);
+function scratchClaw(scene, damage, scale) {
+  new Claw(scene, scene.m_player, damage, scale, true);
   scene.time.addEvent({
     delay: 500,
     callback: () => {
-      new Claw(scene, scene.m_player, damage, false);
+      new Claw(scene, scene.m_player, damage, scale, false);
     },
     loop: false,
   });
-  // new Claw(scene, scene.m_player, damage);
 }
 
-function useCatnip(scene, damage) {
-  return new Catnip(scene, scene.m_player, damage);
+function useCatnip(scene, damage, scale) {
+  return new Catnip(scene, scene.m_player, damage, scale);
 }
 
 export function setCatnipScale(scene, scale) {
@@ -59,4 +58,11 @@ export function setCatnipScale(scene, scale) {
   }
   scene.m_attackEvents.catnip._scaleX = scale;
   scene.m_attackEvents.catnip._scaleY = scale;
+}
+
+// not working yet
+export function removeAttack(scene, attackType) {
+  if (attackType === "catnip") return;
+
+  scene.time.removeEvent(scene.m_attackEvents[attackType]);
 }
