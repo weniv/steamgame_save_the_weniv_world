@@ -1,6 +1,8 @@
 import game from "../index";
 import Config from "../Config";
 
+// ref : https://stackoverflow.com/questions/56981851/cannot-resume-game-after-pausing
+
 let global_scene_paused = false;
 let global_time_paused = Date.now() - 100;
 
@@ -10,7 +12,6 @@ export function global_pause(scene) {
     global_time_paused = Date.now();
     global_scene_paused = scene;
 
-    // game.scene.getScene(scene).togglePauseScreen(true);
     togglePauseScreen(game.scene.getScene(global_scene_paused), true);
     game.scene.getScene(scene).m_pauseInSound.play();
   }
@@ -23,7 +24,6 @@ document.addEventListener("keydown", function (event) {
     global_scene_paused
   ) {
     game.scene.resume(global_scene_paused);
-    // game.scene.getScene(global_scene_paused).togglePauseScreen(false);
     togglePauseScreen(game.scene.getScene(global_scene_paused), false);
     game.scene
       .getScene(global_scene_paused)

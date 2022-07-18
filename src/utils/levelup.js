@@ -1,6 +1,8 @@
 import game from "../index";
 import Config from "../Config";
 
+// ref : https://stackoverflow.com/questions/56981851/cannot-resume-game-after-pausing
+
 let level_scene_paused = false;
 let level_time_paused = Date.now() - 100;
 
@@ -10,7 +12,6 @@ export function level_pause(scene) {
     level_time_paused = Date.now();
     level_scene_paused = scene;
 
-    // game.scene.getScene(scene).toggleLevelScreen(true);
     toggleLevelScreen(game.scene.getScene(scene), true);
     game.scene.getScene(scene).m_nextLevelSound.play();
   }
@@ -24,7 +25,6 @@ document.addEventListener("keydown", function (event) {
   ) {
     const previousScene = game.scene.getScene(level_scene_paused);
     game.scene.resume(level_scene_paused);
-    // previousScene.toggleLevelScreen(false);
     toggleLevelScreen(previousScene, false);
     previousScene.m_pauseOutSound.play();
     previousScene.afterLevelUp();
