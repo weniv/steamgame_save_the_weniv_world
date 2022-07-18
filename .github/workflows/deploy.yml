@@ -3,7 +3,7 @@ name: Deploy Phaser Application
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ steam ]
 
 jobs:
   build:
