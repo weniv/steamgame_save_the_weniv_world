@@ -5,10 +5,13 @@ export default class Claw extends Phaser.Physics.Arcade.Sprite {
   static REPEAT_GAP = 1000;
   static DURATION = 500;
 
-  constructor(scene, player, damage) {
-    const x = player.x - 40 + 80*(player.flipX);
+  constructor(scene, player, damage, scratchFront) {
+    const x = player.x - 40 + 80 * scratchFront;
     const y = player.y - 40;
     super(scene, x, y, "claw_white");
+    if (!scratchFront) {
+      this.flipX = true;
+    }
     this.play("scratch_white");
     this.m_damage = damage;
 
@@ -16,7 +19,7 @@ export default class Claw extends Phaser.Physics.Arcade.Sprite {
     scene.physics.world.enableBody(this);
     scene.m_weaponStatic.add(this);
     
-    this.scale = 2;
+    this.scale = 2.3;
     this.setDepth(30);
     
     scene.time.addEvent({
@@ -32,4 +35,5 @@ export default class Claw extends Phaser.Physics.Arcade.Sprite {
     this.x += vector[0] * Player.PLAYER_SPEED;
     this.y += vector[1] * Player.PLAYER_SPEED;
   }
+
 }

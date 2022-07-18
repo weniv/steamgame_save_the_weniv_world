@@ -38,7 +38,15 @@ function shootBeam(scene, damage) {
 }
 
 function scratchClaw(scene, damage) {
-  new Claw(scene, scene.m_player, damage);
+  new Claw(scene, scene.m_player, damage, true);
+  scene.time.addEvent({
+    delay: 500,
+    callback: () => {
+      new Claw(scene, scene.m_player, damage, false);
+    },
+    loop: false,
+  });
+  // new Claw(scene, scene.m_player, damage);
 }
 
 function useCatnip(scene, damage) {
