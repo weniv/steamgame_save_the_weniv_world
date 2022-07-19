@@ -217,14 +217,14 @@ export default class PlayingScene extends Phaser.Scene {
     // player, weaponStatic의 움직임 관리
     let vector = [0, 0];
     if (this.m_cursorKeys.left.isDown || this.m_wasdKeys.left.isDown) {
-      vector = [-1, 0];
+      vector[0] += -1;
     } else if (this.m_cursorKeys.right.isDown || this.m_wasdKeys.right.isDown) {
-      vector = [1, 0];
+      vector[0] += 1;
     }
     if (this.m_cursorKeys.up.isDown || this.m_wasdKeys.up.isDown) {
-      vector = [0, -1];
+      vector[1] += -1;
     } else if (this.m_cursorKeys.down.isDown || this.m_wasdKeys.down.isDown) {
-      vector = [0, 1];
+      vector[1] += 1;
     }
 
     this.m_player.move(vector);
