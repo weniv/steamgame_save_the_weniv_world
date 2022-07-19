@@ -8,7 +8,7 @@ import { global_pause, createPauseScreen } from "../utils/pause";
 import { level_pause, createLevelScreen } from "../utils/levelup";
 import { getTimeString } from "../utils/time";
 import { createVeil, setBackground } from "../utils/backgroundManager";
-import { addMobEvent, removeOldestMobEvent } from "../utils/mobManager";
+import { addMob, addMobEvent, removeOldestMobEvent } from "../utils/mobManager";
 import { addAttackEvent, setAttackScale, setBeamDuration } from "../utils/attackManager";
 
 export default class PlayingScene extends Phaser.Scene {
@@ -201,11 +201,17 @@ export default class PlayingScene extends Phaser.Scene {
       addAttackEvent(this, "beam", 10, 1, 1000);
 
       removeOldestMobEvent(this);
-      addMobEvent(this, 2000, "mob3", "mob3_anim", 30, 0.7);
+      addMobEvent(this, 1000, "mob3", "mob3_anim", 30, 0.7);
     } else if (this.m_topBar.m_level === 4) {
       setAttackScale(this, "beam", 2);
+
+      removeOldestMobEvent(this);
+      addMobEvent(this, 1000, "mob4", "mob4_anim", 40, 0.7);
     } else if (this.m_topBar.m_level === 5) {
       setBeamDuration(3000);
+      
+      removeOldestMobEvent(this);
+      addMob(this, "lion", "lion_anim", 100);
     }
   }
 

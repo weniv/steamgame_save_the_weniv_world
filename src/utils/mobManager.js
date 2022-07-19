@@ -20,6 +20,15 @@ export function addMobEvent(scene, repeatGap, mobTexture, mobAnim, mobHp, mobDro
   scene.m_mobEvents.push(timer);
 }
 
+export function addMob(scene, mobTexture, mobAnim, mobHp) {
+  const r =
+    Math.sqrt(
+      Config.width * Config.width + Config.height * Config.height
+    ) / 2;
+  let [x, y] = getRandomPosition(scene.m_player.x, scene.m_player.y, r);
+  scene.m_mobs.add(new Mob(scene, x, y, mobTexture, mobAnim, mobHp, 0));
+}
+
 // 가장 오래된 mob event를 지우는 함수
 export function removeOldestMobEvent(scene) {
   scene.m_mobEvents[0].remove();
