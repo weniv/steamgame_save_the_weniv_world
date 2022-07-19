@@ -19,7 +19,6 @@ export default class Claw extends Phaser.Physics.Arcade.Sprite {
     scene.physics.world.enableBody(this);
     scene.m_weaponStatic.add(this);
     
-    // this.scale = 2.3;
     this.scale = scale;
     this.setDepth(30);
     
@@ -36,5 +35,4 @@ export default class Claw extends Phaser.Physics.Arcade.Sprite {
     this.x += vector[0] * Player.PLAYER_SPEED;
     this.y += vector[1] * Player.PLAYER_SPEED;
   }
-
 }

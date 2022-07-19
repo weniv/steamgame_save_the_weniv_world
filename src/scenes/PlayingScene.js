@@ -9,7 +9,7 @@ import { level_pause, createLevelScreen } from "../utils/levelup";
 import { getTimeString } from "../utils/time";
 import { createVeil, setBackground } from "../utils/backgroundManager";
 import { addMobEvent, removeOldestMobEvent } from "../utils/mobManager";
-import { addAttackEvent, setAttackScale } from "../utils/attackManager";
+import { addAttackEvent, setAttackScale, setBeamDuration } from "../utils/attackManager";
 
 export default class PlayingScene extends Phaser.Scene {
   constructor() {
@@ -204,6 +204,8 @@ export default class PlayingScene extends Phaser.Scene {
       addMobEvent(this, 2000, "mob3", "mob3_anim", 30, 0.7);
     } else if (this.m_topBar.m_level === 4) {
       setAttackScale(this, "beam", 2);
+    } else if (this.m_topBar.m_level === 5) {
+      setBeamDuration(3000);
     }
   }
 

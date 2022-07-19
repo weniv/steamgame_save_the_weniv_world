@@ -13,7 +13,6 @@ export default class Catnip extends Phaser.Physics.Arcade.Sprite {
     scene.physics.world.enableBody(this);
     scene.m_weaponStatic.add(this);
 
-    // this.scale = 2;
     this.scale = scale;
     this.alpha = 0.5;
     this.setDepth(5);

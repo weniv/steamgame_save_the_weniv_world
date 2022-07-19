@@ -73,3 +73,7 @@ export function setAttackScale(scene, attackType, scale) {
   removeAttack(scene, attackType);
   addAttackEvent(scene, attackType, 10, scale, repeatGap);
 }
+
+export function setBeamDuration(duration) {
+  Beam.DURATION = duration;
+}
