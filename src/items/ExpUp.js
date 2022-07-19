@@ -1,5 +1,24 @@
 import Phaser from "phaser";
 
+const ITEM_PROPERTY = {
+  'mob1': {
+    exp: 100,
+    color: 'red'
+  },
+  'mob2': {
+    exp: 100,
+    color: 'blue'
+  },
+  'mob3': {
+    exp: 100,
+    color: 'yellow'
+  },
+  'mob4': {
+    exp: 100,
+    color: 'green'
+  },
+};
+
 export default class ExpUp extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, mob) {
     const x = mob.x;
@@ -10,24 +29,8 @@ export default class ExpUp extends Phaser.Physics.Arcade.Sprite {
     this.setDepth(7);
 
     // mob 종류에 따라 경험치 상승량, 아이템 이미지를 다르게 설정하는 부분
-    // m_exp : 경험치 상승량
-    switch (mob.texture.key) {
-      case 'mob1':
-        this.m_exp = 100;
-        this.play("red");
-        break;
-      case 'mob2':
-        this.m_exp = 20;
-        this.play("blue");
-        break;
-      case 'mob3':
-        this.m_exp = 30;
-        this.play("yellow");
-        break;
-      default:
-        this.m_exp = 10;
-        this.play("green");
-    }
+    this.m_exp = ITEM_PROPERTY[mob.texture.key].exp;
+    this.play(ITEM_PROPERTY[mob.texture.key].color);
 
     scene.add.existing(this);
     scene.physics.world.enableBody(this);
