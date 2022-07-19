@@ -60,7 +60,6 @@ export function setCatnipScale(scene, scale) {
   scene.m_attackEvents.catnip._scaleY = scale;
 }
 
-// not working yet
 export function removeAttack(scene, attackType) {
   if (attackType === "catnip") return;
 

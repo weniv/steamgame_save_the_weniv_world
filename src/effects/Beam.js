@@ -52,7 +52,7 @@ export default class Beam extends Phaser.Physics.Arcade.Sprite {
       this.scene.m_closest.x,
       this.scene.m_closest.y
     );
-    this.rotation = angleToMob + Math.PI / 2;
+    this.rotation = angleToMob + Math.PI / 2 + Math.PI / 4;
     this.body.setAngularVelocity(0);
   }
 
