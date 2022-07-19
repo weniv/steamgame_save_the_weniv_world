@@ -88,6 +88,16 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
     new Explosion(this.scene, this.x, this.y);
     this.scene.m_explosionSound.play();
 
+    if (this.texture.key === 'lion') {
+      // this.scene.m_gameoverSound.play();
+      console.log(this.scene);
+      this.scene.scene.start("gameClearScene", {
+        mobKilled: this.scene.m_topBar.m_score,
+        level: this.scene.m_topBar.m_level,
+        secondElapsed: this.scene.m_secondElapsed,
+      });
+    }
+
     // dropRate의 확률로 item을 떨어뜨린다.
     if (Math.random() < this.m_dropRate) {
       const expUp = new ExpUp(this.scene, this);

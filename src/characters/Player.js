@@ -1,12 +1,13 @@
 import Phaser from "phaser";
 import HpBar from "../ui/HpBar";
 import Explosion from "../effects/Explosion";
+import Config from "../Config";
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
   static PLAYER_SPEED = 3;
 
   constructor(scene) {
-    super(scene, 400, 300, "player");
+    super(scene, Config.width / 2, Config.height / 2, "player");
     this.scale = 2; // 크기 조정
     this.alpha = 1; // 투명도 설정
     this.m_hpBar = new HpBar(scene, this, 100); // HP bar 생성
