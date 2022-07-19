@@ -1,5 +1,6 @@
 import Explosion from "../effects/Explosion";
 import ExpUp from "../items/ExpUp";
+import { winGame } from "../utils/sceneManager";
 
 export default class Mob extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, texture, animKey, initHp, dropRate) {
@@ -88,16 +89,6 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
     new Explosion(this.scene, this.x, this.y);
     this.scene.m_explosionSound.play();
 
-    if (this.texture.key === 'lion') {
-      // this.scene.m_gameoverSound.play();
-      console.log(this.scene);
-      this.scene.scene.start("gameClearScene", {
-        mobKilled: this.scene.m_topBar.m_score,
-        level: this.scene.m_topBar.m_level,
-        secondElapsed: this.scene.m_secondElapsed,
-      });
-    }
-
     // dropRate의 확률로 item을 떨어뜨린다.
     if (Math.random() < this.m_dropRate) {
       const expUp = new ExpUp(this.scene, this);
@@ -109,6 +100,11 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
 
     // player 쪽으로 움직이게 만들었던 event를 제거한다.
     this.scene.time.removeEvent(this.m_events);
+
+    if (this.texture.key === 'lion') {
+      winGame(this.scene);
+    }
+
     // mob 객체를 제거한다.
     this.destroy();
   }

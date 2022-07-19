@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import HpBar from "../ui/HpBar";
 import Explosion from "../effects/Explosion";
 import Config from "../Config";
+import { loseGame } from "../utils/sceneManager";
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
   static PLAYER_SPEED = 3;
@@ -32,12 +33,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     // hp가 0이 되면 게임오버!
     if (this.m_hpBar.m_currentHp <= 0) {
-      this.scene.m_gameoverSound.play();
-      this.scene.scene.start("gameoverScene", {
-        mobKilled: this.scene.m_topBar.m_score,
-        level: this.scene.m_topBar.m_level,
-        secondElapsed: this.scene.m_secondElapsed,
-      });
+      loseGame(this.scene);
     }
 
     this.getCooldown();
