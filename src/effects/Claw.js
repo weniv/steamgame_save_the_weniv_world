@@ -6,7 +6,7 @@ export default class Claw extends Phaser.Physics.Arcade.Sprite {
   static DURATION = 500;
 
   constructor(scene, player, damage, scale, scratchFront) {
-    const x = player.x - 40 + 80 * scratchFront;
+    const x = player.x - 60 + 120 * scratchFront;
     const y = player.y - 40;
     super(scene, x, y, "claw_white");
     if (!scratchFront) {
