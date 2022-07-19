@@ -9,7 +9,7 @@ import { level_pause, createLevelScreen } from "../utils/levelup";
 import { getTimeString } from "../utils/time";
 import { createVeil, setBackground } from "../utils/backgroundManager";
 import { addMobEvent, removeOldestMobEvent } from "../utils/mobManager";
-import { addAttackEvent, removeAttack, setCatnipScale } from "../utils/attackManager";
+import { addAttackEvent, setAttackScale } from "../utils/attackManager";
 
 export default class PlayingScene extends Phaser.Scene {
   constructor() {
@@ -188,8 +188,7 @@ export default class PlayingScene extends Phaser.Scene {
     if (this.m_topBar.m_level === 2) {
       setBackground(this, "background2");
 
-      removeAttack(this, "claw");
-      addAttackEvent(this, "claw", 10, 4, 1500);
+      setAttackScale(this, "claw", 4);
       addAttackEvent(this, "catnip", 10, 2, 0);
 
       removeOldestMobEvent(this);
@@ -198,11 +197,13 @@ export default class PlayingScene extends Phaser.Scene {
     } else if (this.m_topBar.m_level === 3) {
       setBackground(this, "background3");
 
-      setCatnipScale(this, 3);
+      setAttackScale(this, "catnip", 3);
       addAttackEvent(this, "beam", 10, 1, 1000);
 
       removeOldestMobEvent(this);
       addMobEvent(this, 2000, "mob3", "mob3_anim", 30, 0.7);
+    } else if (this.m_topBar.m_level === 4) {
+      setAttackScale(this, "beam", 2);
     }
   }
 

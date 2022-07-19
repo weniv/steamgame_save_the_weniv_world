@@ -52,16 +52,24 @@ function useCatnip(scene, damage, scale) {
   return new Catnip(scene, scene.m_player, damage, scale);
 }
 
-export function setCatnipScale(scene, scale) {
-  if (!scene.m_attackEvents.catnip) {
-    console.error('setCatnipScale error')
-  }
-  scene.m_attackEvents.catnip._scaleX = scale;
-  scene.m_attackEvents.catnip._scaleY = scale;
-}
-
 export function removeAttack(scene, attackType) {
   if (attackType === "catnip") return;
 
   scene.time.removeEvent(scene.m_attackEvents[attackType]);
+}
+
+export function setAttackScale(scene, attackType, scale) {
+  if (attackType === 'catnip') {
+    if (!scene.m_attackEvents.catnip) {
+      console.error('setCatnipScale error');
+      return;
+    }
+    scene.m_attackEvents.catnip._scaleX = scale;
+    scene.m_attackEvents.catnip._scaleY = scale;
+    return;
+  }
+
+  const repeatGap = scene.m_attackEvents[attackType].delay;
+  removeAttack(scene, attackType);
+  addAttackEvent(scene, attackType, 10, scale, repeatGap);
 }
