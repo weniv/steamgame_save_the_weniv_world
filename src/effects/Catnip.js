@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import Player from "../characters/Player"
 
 export default class Catnip extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, player, damage) {
+  constructor(scene, player, damage, scale) {
     const x = player.x;
     const y = player.y + 20;
     super(scene, x, y, "catnip");
@@ -13,7 +13,8 @@ export default class Catnip extends Phaser.Physics.Arcade.Sprite {
     scene.physics.world.enableBody(this);
     scene.m_weaponStatic.add(this);
 
-    this.scale = 2;
+    // this.scale = 2;
+    this.scale = scale;
     this.alpha = 0.5;
     this.setDepth(5);
     this.setCircle(30);

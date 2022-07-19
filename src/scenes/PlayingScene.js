@@ -9,7 +9,7 @@ import { level_pause, createLevelScreen } from "../utils/levelup";
 import { getTimeString } from "../utils/time";
 import { createVeil, setBackground } from "../utils/backgroundManager";
 import { addMobEvent, removeOldestMobEvent } from "../utils/mobManager";
-import { addAttackEvent, setCatnipScale } from "../utils/attackManager";
+import { addAttackEvent, removeAttack, setCatnipScale } from "../utils/attackManager";
 
 export default class PlayingScene extends Phaser.Scene {
   constructor() {
@@ -58,7 +58,7 @@ export default class PlayingScene extends Phaser.Scene {
     this.m_weaponDynamic = this.add.group();
     this.m_weaponStatic = this.add.group();
     this.m_attackEvents = {};
-    addAttackEvent(this, "catnip", 10, 0);
+    addAttackEvent(this, "catnip", 10, 2, 0);
 
     // exp up item
     this.m_expUps = this.physics.add.group();
@@ -187,13 +187,14 @@ export default class PlayingScene extends Phaser.Scene {
     // TODO : refactor?
     if (this.m_topBar.m_level === 2) {
       setBackground(this, "background2");
-      addAttackEvent(this, "claw", 10, 1000);
+      addAttackEvent(this, "claw", 10, 2.3, 1000);
       setCatnipScale(this, 3);
       removeOldestMobEvent(this);
       addMobEvent(this, 1000, "mob2", "mob2_anim", 20, 0.8);
     } else if (this.m_topBar.m_level === 3) {
       setBackground(this, "background3");
-      addAttackEvent(this, "beam", 10, 1000);
+      removeAttack(this, "whip");
+      addAttackEvent(this, "beam", 10, 1, 1000);
       removeOldestMobEvent(this);
       addMobEvent(this, 2000, "mob3", "mob3_anim", 30, 0.7);
     }
