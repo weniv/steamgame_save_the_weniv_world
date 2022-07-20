@@ -1,7 +1,7 @@
 import LoadingScene from "./scenes/LoadingScene";
 import MainScene from "./scenes/MainScene";
 import PlayingScene from "./scenes/PlayingScene";
-import GameOverScene from "./scenes/GameoverScene";
+import GameOverScene from "./scenes/GameOverScene";
 import GameClearScene from "./scenes/GameClearScene";
 // import 'dotenv/config';
 
