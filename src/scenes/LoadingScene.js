@@ -25,7 +25,7 @@ import explosionOgg from "../assets/sounds/explosion.ogg";
 import hurtOgg from "../assets/sounds/hurt.ogg";
 import expUpOgg from "../assets/sounds/expUp.ogg";
 import nextLevelOgg from "../assets/sounds/nextLevel.ogg"
-import gameoverOgg from "../assets/sounds/gameover.ogg";
+import gameOverOgg from "../assets/sounds/gameover.ogg";
 import pauseInOgg from "../assets/sounds/pauseIn.ogg";
 import pauseOutOgg from "../assets/sounds/pauseOut.ogg";
 
@@ -95,7 +95,7 @@ export default class LoadingScene extends Phaser.Scene {
     this.load.audio("audio_expUp", expUpOgg);
     this.load.audio("audio_hurt", hurtOgg);
     this.load.audio("audio_nextLevel", nextLevelOgg);
-    this.load.audio("audio_gameover", gameoverOgg);
+    this.load.audio("audio_gameOver", gameOverOgg);
     this.load.audio("audio_pauseIn", pauseInOgg);
     this.load.audio("audio_pauseOut", pauseOutOgg);
 

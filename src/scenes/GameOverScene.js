@@ -3,9 +3,9 @@ import Config from "../Config";
 import Button from "../ui/Button";
 import { getTimeString } from "../utils/time";
 
-export default class GameoverScene extends Phaser.Scene {
+export default class GameOverScene extends Phaser.Scene {
   constructor() {
-    super("gameoverScene");
+    super("gameOverScene");
   }
 
   init(data) {

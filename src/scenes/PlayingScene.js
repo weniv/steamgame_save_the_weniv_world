@@ -32,7 +32,7 @@ export default class PlayingScene extends Phaser.Scene {
     this.m_expUpSound = this.sound.add("audio_expUp");
     this.m_hurtSound = this.sound.add("audio_hurt");
     this.m_nextLevelSound = this.sound.add("audio_nextLevel");
-    this.m_gameoverSound = this.sound.add("audio_gameover");
+    this.m_gameOverSound = this.sound.add("audio_gameOver");
     this.m_pauseInSound = this.sound.add("audio_pauseIn");
     this.m_pauseOutSound = this.sound.add("audio_pauseOut");
 
@@ -58,7 +58,7 @@ export default class PlayingScene extends Phaser.Scene {
     this.m_weaponDynamic = this.add.group();
     this.m_weaponStatic = this.add.group();
     this.m_attackEvents = {};
-    addAttackEvent(this, "claw", 10, 2.3, 1500);
+    addAttackEvent(this, "claw", 0, 2.3, 1500);
 
     // exp up item
     this.m_expUps = this.physics.add.group();
