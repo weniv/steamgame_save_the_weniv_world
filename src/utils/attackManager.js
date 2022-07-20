@@ -50,7 +50,7 @@ function scratchClaw(scene, damage, scale) {
 }
 
 function useCatnip(scene, damage, scale) {
-  return new Catnip(scene, scene.m_player, damage, scale);
+  return new Catnip(scene, [scene.m_player.x, scene.m_player.y + 20], damage, scale);
 }
 
 export function removeAttack(scene, attackType) {

@@ -2,10 +2,8 @@ import Phaser from "phaser";
 import Player from "../characters/Player"
 
 export default class Catnip extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, player, damage, scale) {
-    const x = player.x;
-    const y = player.y + 20;
-    super(scene, x, y, "catnip");
+  constructor(scene, startingPosition, damage, scale) {
+    super(scene, startingPosition[0], startingPosition[1], "catnip");
     this.play("catnip_anim");
     this.m_damage = damage;
 
