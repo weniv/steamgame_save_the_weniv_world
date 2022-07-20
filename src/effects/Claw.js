@@ -5,10 +5,9 @@ export default class Claw extends Phaser.Physics.Arcade.Sprite {
   static REPEAT_GAP = 1000;
   static DURATION = 500;
 
-  constructor(scene, player, damage, scale, isHeadingRight) {
-    const x = player.x - 60 + 120 * isHeadingRight;
-    const y = player.y - 40;
-    super(scene, x, y, "claw_white");
+  constructor(scene, startingPosition, isHeadingRight, damage, scale) {
+    super(scene, startingPosition[0], startingPosition[1], "claw_white");
+
     if (!isHeadingRight) {
       this.flipX = true;
     }

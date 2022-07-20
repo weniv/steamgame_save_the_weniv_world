@@ -198,7 +198,7 @@ export default class PlayingScene extends Phaser.Scene {
 
     } else if (this.m_topBar.m_level === 3) {
       setBackground(this, "background3");
-
+      
       setAttackScale(this, "catnip", 3);
       addAttackEvent(this, "beam", 10, 1, 1000);
 

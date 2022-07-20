@@ -4,10 +4,8 @@ export default class Beam extends Phaser.Physics.Arcade.Sprite {
   static SPEED = 100;
   static DURATION = 1500;
 
-  constructor(scene, player, damage, scale) {
-    const x = player.x;
-    const y = player.y - 16;
-    super(scene, x, y, "beam");
+  constructor(scene, startingPosition, damage, scale) {
+    super(scene, startingPosition[0], startingPosition[1], "beam");
     this.m_damage = damage;
     
     scene.add.existing(this);

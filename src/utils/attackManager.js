@@ -34,16 +34,16 @@ export function addAttackEvent(scene, attackType, attackDamage, attackScale, rep
 }
 
 function shootBeam(scene, damage, scale) {
-  new Beam(scene, scene.m_player, damage, scale);
+  new Beam(scene, [scene.m_player.x, scene.m_player.y - 16], damage, scale);
 }
 
 function scratchClaw(scene, damage, scale) {
   const isHeadingRight = scene.m_player.flipX;
-  new Claw(scene, scene.m_player, damage, scale, isHeadingRight);
+  new Claw(scene, [scene.m_player.x - 60 + 120 * isHeadingRight, scene.m_player.y - 40], isHeadingRight, damage, scale);
   scene.time.addEvent({
     delay: 500,
     callback: () => {
-      new Claw(scene, scene.m_player, damage, scale, !isHeadingRight);
+      new Claw(scene, [scene.m_player.x - 60 + 120 * !isHeadingRight, scene.m_player.y - 40], !isHeadingRight, damage, scale);
     },
     loop: false,
   });
