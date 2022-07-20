@@ -2,19 +2,19 @@ import Phaser from "phaser";
 
 const ITEM_PROPERTY = {
   'mob1': {
-    exp: 100,
+    exp: 10,
     color: 'red'
   },
   'mob2': {
-    exp: 100,
+    exp: 20,
     color: 'blue'
   },
   'mob3': {
-    exp: 100,
+    exp: 30,
     color: 'yellow'
   },
   'mob4': {
-    exp: 100,
+    exp: 40,
     color: 'green'
   },
 };

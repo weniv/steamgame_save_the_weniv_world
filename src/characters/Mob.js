@@ -9,6 +9,7 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
     scene.add.existing(this);
     scene.physics.add.existing(this);
 
+    this.play(animKey);
     this.setDepth(10);
     this.scale = 2;
     this.m_speed = 50;
@@ -23,10 +24,8 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
       this.setBodySize(24, 32);
     } else if (texture === "mob3") {
       this.setBodySize(24, 32);
-    }
-
-    if (animKey) {
-      this.play(animKey);
+    } else if (texture === "mob4") {
+      this.setBodySize(24, 32);
     }
 
     // 계속해서(0.1초마다) player 방향으로 움직이도록 해줍니다.

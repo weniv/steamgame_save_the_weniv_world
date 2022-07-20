@@ -151,10 +151,10 @@ export default class PlayingScene extends Phaser.Scene {
     this.movePlayerManager();
 
     // 무한 배경 구현
-    this.m_background.setX(this.m_player.x - 400);
-    this.m_background.setY(this.m_player.y - 300);
-    this.m_background.tilePositionX = this.m_player.x - 400;
-    this.m_background.tilePositionY = this.m_player.y - 300;
+    this.m_background.setX(this.m_player.x - Config.width / 2);
+    this.m_background.setY(this.m_player.y - Config.height / 2);
+    this.m_background.tilePositionX = this.m_player.x - Config.width / 2;
+    this.m_background.tilePositionY = this.m_player.y - Config.height / 2;
 
     /// player로부터 가장 가까운 mob으ㄹ 구합니다.
     const closest = this.physics.closest(

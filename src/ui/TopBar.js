@@ -51,8 +51,8 @@ export default class TopBar extends Phaser.GameObjects.Graphics {
       .toString()
       .padStart(3, "0")}`;
     
-    // 레벨업 할 때마다 max 경험치가 10씩 증가합니다.
-    this.scene.m_expBar.m_maxExp += 10;
+    // 레벨업 할 때마다 max 경험치가 20씩 증가합니다.
+    this.scene.m_expBar.m_maxExp += 20;
     this.scene.m_expBar.reset();
   }
 }
