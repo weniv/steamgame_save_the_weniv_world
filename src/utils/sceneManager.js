@@ -8,7 +8,7 @@ export function loseGame(playingScene) {
 }
 
 export function winGame(playingScene) {
-  // playingScene.m_gameOverSound.play();
+  playingScene.m_gameClearSound.play();
   playingScene.scene.start("gameClearScene", {
     mobKilled: playingScene.m_topBar.m_score,
     level: playingScene.m_topBar.m_level,

@@ -18,6 +18,7 @@ export default class Claw extends Phaser.Physics.Arcade.Sprite {
     scene.add.existing(this);
     scene.physics.world.enableBody(this);
     scene.m_weaponStatic.add(this);
+    scene.m_scratchSound.play({ volume: 0.5 });
     
     this.scale = scale;
     this.setDepth(30);
