@@ -38,11 +38,12 @@ function shootBeam(scene, damage, scale) {
 }
 
 function scratchClaw(scene, damage, scale) {
-  new Claw(scene, scene.m_player, damage, scale, true);
+  const isHeadingRight = scene.m_player.flipX;
+  new Claw(scene, scene.m_player, damage, scale, isHeadingRight);
   scene.time.addEvent({
     delay: 500,
     callback: () => {
-      new Claw(scene, scene.m_player, damage, scale, false);
+      new Claw(scene, scene.m_player, damage, scale, !isHeadingRight);
     },
     loop: false,
   });
