@@ -1,6 +1,6 @@
-# phaser-lecture
+# steamgame_save_the_weniv_world
 
-[![Deploy Phaser Application](https://github.com/choar816/phaser-lecture/actions/workflows/deploy.yml/badge.svg)](https://github.com/choar816/phaser-lecture/actions/workflows/deploy.yml)
+[배포 링크](https://weniv.github.io/steamgame_save_the_weniv_world/)
 
 ## Tech Stack
 `JavaScript`, `Phaser 3`
