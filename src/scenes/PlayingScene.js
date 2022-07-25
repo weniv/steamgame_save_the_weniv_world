@@ -60,7 +60,7 @@ export default class PlayingScene extends Phaser.Scene {
     this.m_weaponDynamic = this.add.group();
     this.m_weaponStatic = this.add.group();
     this.m_attackEvents = {};
-    addAttackEvent(this, "claw", 100, 2.3, 1500);
+    addAttackEvent(this, "claw", 10, 2.3, 1500);
 
     // exp up item
     this.m_expUps = this.physics.add.group();
@@ -191,7 +191,7 @@ export default class PlayingScene extends Phaser.Scene {
       setBackground(this, "background2");
 
       setAttackScale(this, "claw", 4);
-      addAttackEvent(this, "catnip", 10, 2, 0);
+      addAttackEvent(this, "catnip", 5, 2, 0);
 
       removeOldestMobEvent(this);
       addMobEvent(this, 1000, "mob2", "mob2_anim", 20, 0.8);

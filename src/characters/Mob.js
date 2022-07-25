@@ -61,6 +61,7 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
   hit(weaponDynamic, damage) {
     this.m_hp -= damage;
     this.scene.m_hitMobSound.play();
+    this.displayHit();
 
     // TODO: 관통 무기
     weaponDynamic.destroy();
@@ -71,8 +72,24 @@ export default class Mob extends Phaser.Physics.Arcade.Sprite {
 
     this.m_hp -= damage;
     this.scene.m_hitMobSound.play();
+    this.displayHit();
+    this.getCoolDown();
+  }
 
-    // 공격받은 후 1초 쿨타임
+  // 공격받은 mob을 투명도를 1초간 조절함으로써 표시
+  displayHit() {
+    this.alpha = 0.5;
+    this.scene.time.addEvent({
+      delay: 1000,
+      callback: () => {
+        this.alpha = 1;
+      },
+      loop: false,
+    });
+  }
+
+  // 1초 쿨타임 갖는 함수
+  getCoolDown() {
     this.m_canBeAttacked = false;
     this.scene.time.addEvent({
       delay: 1000,
